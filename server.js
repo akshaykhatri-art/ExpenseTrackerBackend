@@ -7,6 +7,9 @@ import pool from "./config/db.js";
 // auth route
 import authRoutes from "./routes/authRoutes.js";
 
+// category route
+import categoryRoutes from "./routes/categoryRoutes.js";
+
 const app = express();
 
 app.use(cors());
@@ -17,6 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/category", categoryRoutes);
 
 const PORT = process.env.PORT || 5000;
 
