@@ -10,6 +10,9 @@ import authRoutes from "./routes/authRoutes.js";
 // category route
 import categoryRoutes from "./routes/categoryRoutes.js";
 
+// expense route
+import expenseRoutes from "./routes/expenseRoutes.js";
+
 const app = express();
 
 app.use(cors());
@@ -21,6 +24,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/category", categoryRoutes);
+app.use("/api/expense", expenseRoutes);
 
 const PORT = process.env.PORT || 5000;
 
