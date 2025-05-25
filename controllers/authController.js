@@ -31,10 +31,16 @@ const login = async (req, res) => {
 
     const user = await authModel.login(email);
 
-    if (!user) return res.status(400).json({ error: "User not found" });
+    if (!user)
+      return res
+        .status(400)
+        .json({ error: "User not found or invalid password" });
 
     const match = await bcrypt.compare(password, user.Password);
-    if (!match) return res.status(400).json({ error: "Invalid password" });
+    if (!match)
+      return res
+        .status(400)
+        .json({ error: "User not found or invalid password" });
 
     const token = jwt.sign(
       { userId: user.PersonId, email: user.LoginId },
@@ -46,6 +52,8 @@ const login = async (req, res) => {
       message: "Login successful",
       token,
       userId: user.PersonId,
+      firstName: user.FirstName,
+      lastName: user.LastName,
     });
   } catch (err) {
     res.status(500).json({ error: "Something went wrong" });
