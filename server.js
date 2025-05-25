@@ -13,6 +13,9 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 // expense route
 import expenseRoutes from "./routes/expenseRoutes.js";
 
+// master route
+import masterRoutes from "./routes/masterRoutes.js";
+
 const app = express();
 
 app.use(cors());
@@ -25,6 +28,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/expense", expenseRoutes);
+app.use("/api/master", masterRoutes);
 
 const PORT = process.env.PORT || 5000;
 
