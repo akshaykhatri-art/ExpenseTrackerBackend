@@ -73,4 +73,27 @@ const remove = async (req, res) => {
   }
 };
 
-export default { getAll, getById, add, update, remove };
+const getFiltered = async (req, res) => {
+  try {
+    const {
+      userId = "All",
+      categoryId = "All",
+      startDate,
+      endDate,
+    } = req.query;
+
+    const expenses = await expenseModel.getFiltered({
+      userId,
+      categoryId,
+      startDate,
+      endDate,
+    });
+
+    res.status(200).json(expenses);
+  } catch (err) {
+    console.error("Error in getFiltered:", err);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+export default { getAll, getById, add, update, remove, getFiltered };

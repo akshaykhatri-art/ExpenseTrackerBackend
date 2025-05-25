@@ -12,6 +12,7 @@ const router = express.Router();
 router.use(authenticate);
 
 router.get("/", expenseController.getAll);
+router.get("/filter", expenseController.getFiltered);
 router.get("/:id", expenseController.getById);
 router.post("/", validate(addExpenseSchema), expenseController.add);
 router.put("/", validate(updateExpenseSchema), expenseController.update);

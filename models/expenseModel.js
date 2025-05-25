@@ -53,4 +53,14 @@ const remove = async (expenseId, userId) => {
   };
 };
 
-export default { getAll, getById, add, update, remove };
+const getFiltered = async (filters) => {
+  const { userId, categoryId, startDate, endDate } = filters;
+
+  const [rows] = await pool.query(
+    "CALL spGetExpenseListWithFilter(?, ?, ?, ?)",
+    [userId, categoryId, startDate || null, endDate || null]
+  );
+  return rows[0];
+};
+
+export default { getAll, getById, add, update, remove, getFiltered };
