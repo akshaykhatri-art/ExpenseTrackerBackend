@@ -33,11 +33,11 @@ const add = async (req, res) => {
 
     const result = await categoryModel.add(data);
 
-    if (!result.success) {
-      return res.status(400).json({ error: result.message });
+    if (result?.success === 0) {
+      return res.status(400).json({ error: result?.message });
     }
 
-    res.status(200).json({ message: result.message });
+    res.status(200).json({ message: result?.message });
   } catch (err) {
     res.status(500).json({ error: "Something went wrong" });
   }
@@ -52,11 +52,11 @@ const update = async (req, res) => {
 
     const result = await categoryModel.update(data);
 
-    if (!result.success) {
-      return res.status(400).json({ error: result.message });
+    if (result?.success === 0) {
+      return res.status(400).json({ error: result?.message });
     }
 
-    res.status(200).json({ message: result.message });
+    res.status(200).json({ message: result?.message });
   } catch (err) {
     res.status(500).json({ error: "Something went wrong" });
   }

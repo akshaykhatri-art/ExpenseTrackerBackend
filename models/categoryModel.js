@@ -19,7 +19,15 @@ const add = async (data) => {
     data.categoryName,
     data.CurrentUser,
   ]);
-  const result = rows[0][0];
+  const result = rows?.[0]?.[0];
+
+  if (!result) {
+    return {
+      success: 0,
+      message: "No response from stored procedure",
+    };
+  }
+
   return result;
 };
 
@@ -29,7 +37,15 @@ const update = async (data) => {
     data.categoryName,
     data.CurrentUser,
   ]);
-  const result = rows[0][0];
+  const result = rows?.[0]?.[0];
+
+  if (!result) {
+    return {
+      success: 0,
+      message: "No response from stored procedure",
+    };
+  }
+
   return result;
 };
 
