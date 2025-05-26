@@ -9,4 +9,13 @@ const getDropdown = async (req, res) => {
   }
 };
 
-export default { getDropdown };
+const getStatistics = async (req, res) => {
+  try {
+    const stats = await masterModel.getStatistics(req.user.userId);
+    res.json(stats);
+  } catch (err) {
+    res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+export default { getDropdown, getStatistics };

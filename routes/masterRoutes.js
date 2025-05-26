@@ -7,5 +7,6 @@ const router = express.Router();
 router.use(authenticate);
 
 router.get("/dropdown", masterController.getDropdown);
+router.get("/statistics", masterController.getStatistics);
 
 export default router;
