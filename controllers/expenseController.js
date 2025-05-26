@@ -30,11 +30,11 @@ const add = async (req, res) => {
 
     const result = await expenseModel.add(data);
 
-    if (!result.success) {
-      return res.status(400).json({ error: result.message });
+    if (result?.success === 0) {
+      return res.status(400).json({ error: result?.message });
     }
 
-    res.status(200).json({ message: result.message });
+    res.status(200).json({ message: result?.message });
   } catch (err) {
     res.status(500).json({ error: "Something went wrong" });
   }
@@ -49,11 +49,11 @@ const update = async (req, res) => {
 
     const result = await expenseModel.update(data);
 
-    if (!result.success) {
-      return res.status(400).json({ error: result.message });
+    if (result?.success === 0) {
+      return res.status(400).json({ error: result?.message });
     }
 
-    res.status(200).json({ message: result.message });
+    res.status(200).json({ message: result?.message });
   } catch (err) {
     res.status(500).json({ error: "Something went wrong" });
   }
@@ -82,11 +82,14 @@ const getFiltered = async (req, res) => {
       endDate,
     } = req.query;
 
+    const currentUser = req.user.userId;
+
     const expenses = await expenseModel.getFiltered({
       userId,
       categoryId,
       startDate,
       endDate,
+      currentUser,
     });
 
     res.status(200).json(expenses);

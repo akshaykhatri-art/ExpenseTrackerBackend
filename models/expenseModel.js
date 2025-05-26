@@ -22,7 +22,15 @@ const add = async (data) => {
     data.description,
     data.CurrentUser,
   ]);
-  const result = rows[0][0];
+  const result = rows?.[0]?.[0];
+
+  if (!result) {
+    return {
+      success: 0,
+      message: "No response from stored procedure",
+    };
+  }
+
   return result;
 };
 
@@ -35,7 +43,15 @@ const update = async (data) => {
     data.description,
     data.CurrentUser,
   ]);
-  const result = rows[0][0];
+  const result = rows?.[0]?.[0];
+
+  if (!result) {
+    return {
+      success: 0,
+      message: "No response from stored procedure",
+    };
+  }
+
   return result;
 };
 
@@ -54,11 +70,11 @@ const remove = async (expenseId, userId) => {
 };
 
 const getFiltered = async (filters) => {
-  const { userId, categoryId, startDate, endDate } = filters;
+  const { userId, categoryId, startDate, endDate, currentUser } = filters;
 
   const [rows] = await pool.query(
-    "CALL spGetExpenseListWithFilter(?, ?, ?, ?)",
-    [userId, categoryId, startDate || null, endDate || null]
+    "CALL spGetExpenseListWithFilter(?, ?, ?, ?, ?)",
+    [userId, categoryId, startDate || null, endDate || null, currentUser]
   );
   return rows[0];
 };
